@@ -25,42 +25,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-.ia-container > div {
-    position: relative;
-	left: 0 !important;
-}
-
-.ia-container input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 50px; /* just cover visible part */
-	height: 100%;
-	cursor: pointer;
-	border: 0;
-	padding: 0;
-    opacity: 0;
-	z-index: 100;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-
-.ia-container input:checked{
-	width: 5px;
-	left: auto;
-	right: 0px;
-}
-.ia-container input:checked ~ div {
-    left: 335px;
-    transition: all 0.7s ease-in-out;
-}
-
-.ia-container p {
-	display: block;
-	width: 100%;
-}
-
 .card { 
     width: 18em; 
     margin: 5px;
