@@ -8,6 +8,22 @@
     flex-wrap: wrap;
     flex-direction: row;
 }
+.ia-container {
+	width: 685px;
+	margin: 20px auto;
+	overflow: hidden;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.08);
+	border: 7px solid rgba(255,255,255,0.6);
+}
+
+.ia-container div {
+    position: absolute;
+	top: 0;
+	left: 50px; /* width of visible piece */
+	width: 335px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.6);
+    transition: all 0.3s ease-in-out;
+}
 
 .card { 
     width: 18em; 
