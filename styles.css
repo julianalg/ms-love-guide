@@ -9,10 +9,15 @@
     flex-direction: row;
 }
 
+.section-title {
+    margin-top: 2cap;
+}
+
 .card { 
-    width: 18em; 
+    width: 15em; 
     margin: 5px;
 }
+
 :root {
     --dark-grey: #9699a8;
 }
@@ -44,16 +49,15 @@ main {
     left: 0%; right: 0%;
 }
 
-.ind-trigger {
-    background-color: rgba(0, 0, 0, 0); flex-direction: column; 
-    justify-content: space-around;
-    align-items: center; 
-    padding-left: 20px; 
-    padding-right: 20px; 
+.books {
+    border: 1px solid black;
+    overflow-x: scroll;
+    width: 100%;
+    height: 30%;
     display: flex;
 }
-    
-.ind-trigger .w--current { 
-    opacity: 0; 
-    color: #304dd2;
+
+.book { 
+    width: 20%;
+    margin: 1%;
 }
