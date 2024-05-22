@@ -1,96 +1,523 @@
-.container {
-    margin-top: 10px;
-}
 
-.tips {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
 
-/* Card Scrolling */
+
+@supports (animation-timeline: view()) {
+    .card {
+        --index0: calc(var(--index) - 1); /* 0-based index */
+        --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+        --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+    }
+    
+    @keyframes scale {
+        to {
+            transform:
+            scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+        }
+    }
+    
+    #cards {
+        --numcards: 4;
+        view-timeline-name: --cards-element-scrolls-in-body;
+    }
+    
+    .card__content {
+        --start-range: calc(var(--index0) / var(--numcards) * 100%);
+        --end-range: calc((var(--index)) / var(--numcards) * 100%);
+        
+        animation: linear scale forwards;
+        animation-timeline: --cards-element-scrolls-in-body;
+        animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+    }
+}
 .card {
-	--index0: calc(var(--index) - 1); /* 0-based index */
-	--reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
-	--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+    --index0: calc(var(--index) - 1); /* 0-based index */
+    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+    --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
 }
 
 @keyframes scale {
-	to {
-		transform:
-			scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
-	}
+    to {
+        transform:
+        scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    }
 }
 
 #cards {
-	--numcards: 4;
-	view-timeline-name: --cards-element-scrolls-in-body;
+    --numcards: 4;
+    view-timeline-name: --cards-element-scrolls-in-body;
 }
 
 .card__content {
-	--start-range: calc(var(--index0) / var(--numcards) * 100%);
-	--end-range: calc((var(--index)) / var(--numcards) * 100%);
-
-	animation: linear scale forwards;
-	animation-timeline: --cards-element-scrolls-in-body;
-	animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+    --start-range: calc(var(--index0) / var(--numcards) * 100%);
+    --end-range: calc((var(--index)) / var(--numcards) * 100%);
+    
+    animation: linear scale forwards;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
 }
 
-.section-title {
-    margin-top: 2cap;
+.card {
+    --index0: calc(var(--index) - 1); /* 0-based index */
+    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+    --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
 }
 
-.card { 
-    width: 15em; 
-    margin: 5px;
-}
+
 
 :root {
-    --dark-grey: #9699a8;
+    --card-height: 40vw;
+    --card-margin: 4vw;
+    --card-top-offset: 1em;
+    --outline-width: 0px;
+}
+
+#cards {
+    /* Make place at bottom, as items will slide to that position*/
+    padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+    /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+    margin-bottom: var(--card-margin);
+}
+
+#card_1 {
+    --index: 1;
+}
+
+#card_2 {
+    --index: 2;
+}
+
+#card_3 {
+    --index: 3;
+}
+
+#card_4 {
+    --index: 4;
+}
+
+.card {
+    position: sticky;
+    top: 0;
+    padding-top: calc(var(--index) * var(--card-top-offset));
+}
+
+.card__content {
+    transform-origin: 50% 0%;
+    will-change: transform;
+}
+
+/** DEBUG **/
+
+#debug {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+}
+#debug::after {
+    content: " Show Debug";
+    margin-left: 1.5em;
+    color: white;
+    white-space: nowrap;
+}
+
+#debug:checked ~ main {
+    --outline-width: 1px;
+}
+
+
+/** PAGE STYLING **/
+
+main * { /* Poor Man's Reset */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    color: #333;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background: #CDE8E5;
+    color: black;
+    
+    font-size: calc(1em + 0.5vw);
 }
 
-h1 {
-    margin-top: 20px; margin-bottom: 10px; font-weight: 700;
-}
-
-a {
-    text-decoration: underline;
-}
-
+header,
 main {
-    z-index: 2; 
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center; 
-    padding-left: 8vw; 
-    padding-right: 8vw; 
-    display: flex;
-    position: absolute;
-    top: 0%;
-    bottom: 0%;
-    left: 0%; right: 0%;
+    width: 80vw;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.books {
-    border: 1px solid black;
-    overflow-x: scroll;
-    width: 100%;
-    height: 30%;
-.books {
-    border: 1px solid black;
-    overflow-x: scroll;
-    width: 100%;
-    height: 30%;
-    display: flex;
+header {
+    height: 100vh;
+    display: grid;
+    place-items: center;
 }
 
-.book { 
-    width: 20%;
-    margin: 1%;
+#cards {
+    list-style: none;
+    outline: calc(var(--outline-width) * 10) solid hotpink;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--numcards), var(--card-height));
+    gap: var(--card-margin);
+}
+
+.card {
+    outline: var(--outline-width) solid lime;
+}
+
+.card__content {
+    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+    background: rgb(255, 255, 255);
+    color: rgb(10, 5, 7);
+    border-radius: 1em;
+    overflow: hidden;
+    
+    display: grid;
+    grid-template-areas: "text img";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    
+    align-items: stretch;
+    outline: var(--outline-width) solid blue;
+}
+
+.card__content > div {
+    grid-area: text;
+    width: 80%;
+    place-self: center;
+    text-align: left;
+    
+    display: grid;
+    gap: 1em;
+    place-items: start;
+}
+
+.card__content > figure {
+    grid-area: img;
+    overflow: hidden;
+}
+
+.card__content > figure > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+main h1 {
+    font-weight: 300;
+    font-size: 3.5em;
+}
+
+main h2 {
+    font-weight: 300;
+    font-size: 2.5em;
+}
+
+main p {
+    font-family: sans-serif;
+    font-weight: 300;
+    line-height: 1.42;
+}
+
+main .btn {
+    background: rgb(188 87 36);
+    color: rgb(255 255 255);
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5em;
+    border-radius: 0.25em;
+}
+
+aside {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: left;
+}
+
+aside p {
+    margin-bottom: 1em;
+}
+
+/* Position warning box */
+.warning {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    width: max-content;
+    text-align: center;
+    max-width: 90vw;
+    margin: auto;
+    z-index: 2;
+    font-size: 0.8em;
+    color: #333;
+}
+
+@layer demo, meta;
+
+@layer meta {
+    @layer metabox {
+        #metabox {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 1.2rem;
+            z-index: 2147483647;
+        }
+        
+        /* Hide all but infobox when embedded */
+        .is-embed #metabox :is(#version-selector, #version-selector-popover, .button[href="/"]) {
+            display: none;
+        }
+        
+        #metabox :is(button, .button) {
+            font-size: 2.5rem;
+            line-height: 1;
+            display: block;
+            
+            border: 0;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            
+            opacity: 0.7;
+            transition: opacity 0.25s ease-in-out;
+            border-radius: 0.25rem;
+            text-decoration: none;
+        }
+        
+        #metabox :is(button, .button):active,
+        #metabox :is(button, .button):focus {
+            outline: 2px dashed rgb(0 0 0 / 0.5);
+            outline-offset: 0.25rem;
+        }
+        
+        #metabox > :is(button, .button):hover {
+            opacity: 1 !important;
+        }
+        
+        @keyframes pulsate {
+            80% {
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        #metabox > button.animated {
+            animation: 5s pulsate ease-in alternate infinite;
+        }
+        
+        #metabox > button.animated:hover,
+        #metabox > button.animated:focus,
+        #metabox:has(dialog[open]) > button.animated {
+            animation: none;
+        }
+        
+        #metabox > button[disabled] {
+            cursor: not-allowed;
+            outline: none !important;
+        }
+    }
+    
+    @layer infobox {
+        @layer ui {
+            #infobox[open] {
+                box-sizing: border-box;
+                margin: 10vh auto;
+                width: 80vw;
+                max-width: 90ch;
+                max-height: 80vh;
+                padding: 2rem;
+                overscroll-behavior: contain;
+                
+                background: #eee;
+                border: 0.25rem solid lightblue;
+                overflow: auto;
+                
+                position: fixed;
+            }
+            
+            #infobox::backdrop {
+                background-color: rgb(0 0 0 / 0.5);
+            }
+            
+            #infobox > :first-child {
+                margin-top: 0;
+            }
+            #infobox > :last-child {
+                margin-bottom: 0;
+            }
+            
+            #infobox-close {
+                /* Also inherits from `#metabox > button` */
+                position: absolute;
+                right: 0.5rem;
+                top: 0.5rem;
+                
+                filter: grayscale();
+            }
+            #infobox-close:hover,
+            #infobox-close:focus {
+                filter: none;
+            }
+        }
+        
+        @layer code {
+            #infobox pre {
+                border: 1px solid #dedede;
+                padding: 1em;
+                background: #f7f7f7;
+                font-family: 'Courier 10 Pitch', Courier, monospace;
+                overflow-x: auto;
+                border-left: 0.4em solid cornflowerblue;
+                tab-size: 2;
+            }
+            
+            #infobox code:not(pre code),
+            #infobox output:not(code:has(output) output) {
+                background: #f7f7f7;
+                border: 1px solid rgb(0 0 0 / 0.2);
+                padding: 0.1rem 0.3rem;
+                margin: 0.1rem 0;
+                border-radius: 0.2rem;
+                display: inline-block;
+            }
+        }
+    }
+    
+    @layer popover {
+        [popovertarget][data-activeversion] {
+            position: relative;
+        }
+        [popovertarget][data-activeversion]::after {
+            content: attr(data-activeversion);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.1em;
+            background-color: #1874bc;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-variant-numeric: tabular-nums;
+            display: block;
+            min-width: 2ex;
+            line-height: 1;
+        }
+        [popovertarget][data-activeversion][data-activelang="js"]::after {
+            background-color: #f7df1e;
+            color: #333;
+        }
+        [popovertarget] {
+            anchor-name: --my-anchor-popover;
+        }
+        [popover] {
+            inset: auto;
+            width: auto;
+            padding: 1rem 1rem 2rem 1rem;
+            overflow: unset;
+            bottom: calc(anchor(top) - 3rem);
+            right: calc(anchor(right) + 3rem);
+        }
+        
+        .no-anchor [popover] {
+            min-width: 20rem;
+            /* transform: translate(calc(-100% - 1rem), calc(-100% + 1rem)); */
+            z-index: 2147483647;
+            bottom: 10rem;
+            right: 4.5rem;
+        }
+        
+        [popover] > :first-child {
+            margin-top: 0;
+        }
+        [popover] > :last-child {
+            margin-bottom: 0;
+        }
+        
+        [popover] [data-lang]::before {
+            content: attr(data-lang);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.1em;
+            background-color: blue;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-variant-numeric: tabular-nums;
+            background-color: #1874bc;
+            display: inline-block;
+            width: 2rem;
+            text-align: center;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+        }
+        [popover] [data-lang="js"]::before {
+            background-color: #f7df1e;
+            color: #333;
+        }
+        
+        [popover] [data-selected] {
+            font-weight: 700;
+        }
+    }
+    
+    @layer warning {
+        .warning {
+            box-sizing: border-box;
+            padding: 1em;
+            margin: 1em 0;
+            border: 1px solid #ccc;
+            background: rgba(255 255 205 / 0.8);
+        }
+        
+        .warning > :first-child {
+            margin-top: 0;
+        }
+        
+        .warning > :last-child {
+            margin-bottom: 0;
+        }
+        
+        .warning a {
+            color: blue;
+        }
+        .warning--info {
+            border: 1px solid #123456;
+            background: rgb(205 230 255 / 0.8);
+        }
+        .warning--alarm {
+            border: 1px solid red;
+            background: #ff000010;
+        }
+        
+        @supports (animation-timeline: view()) {
+            .warning:not([data-bug]) {
+                display: none;
+            }
+        }
+        
+        @supports(animation-range: 0vh 90vh) {
+            .warning[data-bug="1427062"] {
+                display: none;
+            }
+        }
+    }
 }
