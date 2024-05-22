@@ -82,6 +82,11 @@ main {
     overflow-x: scroll;
     width: 100%;
     height: 30%;
+.books {
+    border: 1px solid black;
+    overflow-x: scroll;
+    width: 100%;
+    height: 30%;
     display: flex;
 }
 
