@@ -704,13 +704,6 @@ body {
         outline: var(--outline-width) solid blue;
         padding: 10px;
     }
-    
-    /* Reverse the layer meta() styles */
-    @layer meta {
-        @layer metabox {…}
-    }
-    
-    @layer infobox {…}
 }
 
 @layer popover {
@@ -766,12 +759,9 @@ body {
         background: #ff000010;
     }
     
-    @supports (animation-timeline: view()) {…}
 }
 
-@supports(animation-range: 0vh 90vh) {…}
 
 }
 }
-}
-}
+
