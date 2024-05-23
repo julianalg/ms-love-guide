@@ -280,6 +280,10 @@ header {
     object-fit: cover;
 }
 
+.not-animated {
+    display: none !important;
+}
+
 main h1 {
     font-weight: 300;
     font-size: 3.5em;
