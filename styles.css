@@ -6,7 +6,7 @@
 .card__content {
     --start-range: calc(var(--index0) / var(--numcards) * 100%);
     --end-range: calc((var(--index)) / var(--numcards) * 100%);
-
+    
     
     animation: linear scale forwards;
     animation-timeline: --cards-element-scrolls-in-body;
@@ -26,12 +26,25 @@
     --card-margin: 4vw;
     --card-top-offset: 1em;
     --outline-width: 0px;
+    --numcards: 10;
 }
 
+
+@media screen and (max-width: 768px) {
+    .card__content {
+        animation: none !important;
+    }
+}
+
+
 #cards {
-    /* Make place at bottom, as items will slide to that position*/
-    padding-bottom: calc(var(--numcards) * var(--card-top-offset));
-    /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+    list-style: none;
+    outline: calc(var(--outline-width) * 10) solid hotpink;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--numcards), var(--card-height));
+    gap: var(--card-margin);
+    padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Adjust bottom padding */
     margin-bottom: var(--card-margin);
 }
 
@@ -52,7 +65,7 @@
     to {
         transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
     }
-
+    
     #cards {
         --numcards: 10;
         view-timeline-name: --cards-element-scrolls-in-body;
@@ -66,7 +79,7 @@
         animation-timeline: --cards-element-scrolls-in-body;
         animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
     }
-
+    
 }
 
 #cards {
@@ -76,14 +89,20 @@
 }
 
 .card__content {
-    --index0: calc(var(--index) - 1); /* 0-based index */
-    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
-    --start-range: calc(var(--index0) / var(--numcards) * 100%);
-    --end-range: calc((var(--index) + 1) / var(--numcards) * 100%);
-
-    animation: scale linear forwards;
-    animation-timeline: --cards-element-scrolls-in-body;
-    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+    transform-origin: 50% 0%;
+    will-change: transform;
+    height: 25em;
+    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+    background: rgb(255, 255, 255);
+    color: rgb(10, 5, 7);
+    border-radius: 1em;
+    overflow: hidden;
+    display: grid;
+    grid-template-areas: "text img";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: stretch;
+    outline: var(--outline-width) solid blue;
 }
 
 @keyframes scale {
@@ -98,8 +117,8 @@
     position: sticky;
     top: 0;
     padding-top: calc(var(--index) * var(--card-top-offset));
-
-
+    
+    
 }
 
 /* Assign index values for all 10 cards */
@@ -134,7 +153,7 @@
 .card__content {
     transform-origin: 50% 0%;
     will-change: transform;
-
+    
     height: 25em;
 }
 
@@ -149,18 +168,18 @@
     color: white !important;
     height: 50vh;
     vertical-align: middle;
-
+    
 }
 
 .text-body-emphasis {
     color: white !important;
-
-  
+    
+    
 }
 
-    .content {
-        margin: 15%;
-    }
+.content {
+    margin: 15%;
+}
 
 
 /** DEBUG **/
@@ -213,7 +232,6 @@ header {
 #cards {
     list-style: none;
     outline: calc(var(--outline-width) * 10) solid hotpink;
-    
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(var(--numcards), var(--card-height));
@@ -238,7 +256,7 @@ header {
     
     align-items: stretch;
     outline: var(--outline-width) solid blue;
-
+    
 }
 
 .card__content > div {
@@ -246,7 +264,6 @@ header {
     width: 80%;
     place-self: center;
     text-align: left;
-    
     display: grid;
     gap: 1em;
     place-items: start;
@@ -259,7 +276,7 @@ header {
 
 .card__content > figure > img {
     width: 100%;
-
+    height: 100%;
     object-fit: cover;
 }
 
@@ -272,6 +289,7 @@ main h2 {
     font-weight: 300;
     font-size: 2.5em;
 }
+
 
 main p {
     font-family: sans-serif;
@@ -287,6 +305,7 @@ main .btn {
     padding: 0.5em;
     border-radius: 0.25em;
 }
+
 
 aside {
     width: 50vw;
@@ -311,7 +330,63 @@ aside p {
     z-index: 2;
     font-size: 0.8em;
     color: #333;
+    box-sizing: border-box;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: rgba(255 255 205 / 0.8);
 }
+
+.warning > :first-child {
+    margin-top: 0;
+}
+
+.warning > :last-child {
+    margin-bottom: 0;
+}
+
+.warning a {
+    color: blue;
+}
+
+/* Define debug toggle */
+#debug {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+}
+
+#debug::after {
+    content: " Show Debug";
+    margin-left: 1.5em;
+    color: white;
+    white-space: nowrap;
+}
+
+#debug:checked ~ main {
+    --outline-width: 1px;
+}
+
+/* Poor Man's Reset */
+main * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    color: black;
+    font-size: calc(1em + 0.5vw);
+}
+
+/* Background styling */
+.bg-body-tertiary {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("src/library.jpg");
+    color: white !important;
+    height: 50vh;
+    vertical-align: middle;
+}
+
 
 @layer demo, meta;
 
@@ -581,10 +656,57 @@ aside p {
     }
 }
 
-.figure {
+@media (max-width: 768px) {
+    .animation {
+        display: none !important;
+    }
 
-}
+    .not-animated {
+        display: block;
+    }
 
-@media screen and (max-width: 768px) {
+    .tip {
+        position: static;
+        padding-top: 0;
+    }
+
+    main h1 {
+        font-weight: 300;
+        font-size: 15px;
+    }
+    
+    main h2 {
+        font-weight: 300;
+        font-size: 15px;
+    }
+    
+    
+    main p {
+        font-family: sans-serif;
+        font-weight: 300;
+        line-height: 15px;
+    }
+    
+
+    
+
+    
+    .card__content {
+        transform-origin: 50% 0%;
+        will-change: transform;
+        height: 15em; /* Updated height */
+        box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+        background: rgb(255, 255, 255);
+        color: rgb(10, 5, 7);
+        border-radius: 1em;
+        overflow: hidden;
+        display: grid;
+        grid-template-areas: "text img";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        align-items: stretch;
+        outline: var(--outline-width) solid blue;
+        padding: 10px;
+    }
 
 }
