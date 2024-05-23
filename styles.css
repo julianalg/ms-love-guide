@@ -656,45 +656,41 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+
+@media (max-width: 1500px) {
     .animation {
         display: none !important;
     }
-
     .not-animated {
         display: block;
     }
-
     .tip {
         position: static;
         padding-top: 0;
     }
-
     main h1 {
         font-weight: 300;
-        font-size: 15px;
+        font-size: 20px;
     }
     
     main h2 {
         font-weight: 300;
-        font-size: 15px;
+        font-size: 20px;
     }
     
     
     main p {
         font-family: sans-serif;
         font-weight: 300;
-        line-height: 15px;
+        line-height: 20px;
     }
     
-
     
-
     
     .card__content {
         transform-origin: 50% 0%;
         will-change: transform;
-        height: 15em; /* Updated height */
+        height: 20em; /* Updated height */
         box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
         background: rgb(255, 255, 255);
         color: rgb(10, 5, 7);
@@ -708,5 +704,74 @@ body {
         outline: var(--outline-width) solid blue;
         padding: 10px;
     }
+    
+    /* Reverse the layer meta() styles */
+    @layer meta {
+        @layer metabox {…}
+    }
+    
+    @layer infobox {…}
+}
 
+@layer popover {
+    .no-anchor [popover] {
+        
+        right: 4.5rem;
+    }
+    
+    [popover] > :first-child {
+        margin-top: 0;
+    }
+    [popover] > :last-child {
+        margin-bottom: 0;
+    }
+    
+    [popover] [data-lang]::before {
+        
+        margin-right: 0.2rem;
+    }
+    [popover] [data-lang="js"]::before {
+        
+        color: #333;
+    }
+    
+    [popover] [data-selected] {
+        font-weight: 700;
+    }
+}
+
+@layer warning {
+    .warning {
+        
+        background: rgba(255 255 205 / 0.8);
+    }
+    
+    .warning > :first-child {
+        margin-top: 0;
+    }
+    
+    .warning > :last-child {
+        margin-bottom: 0;
+    }
+    
+    .warning a {
+        color: blue;
+    }
+    .warning--info {
+        
+        background: rgb(205 230 255 / 0.8);
+    }
+    .warning--alarm {
+        
+        background: #ff000010;
+    }
+    
+    @supports (animation-timeline: view()) {…}
+}
+
+@supports(animation-range: 0vh 90vh) {…}
+
+}
+}
+}
 }
