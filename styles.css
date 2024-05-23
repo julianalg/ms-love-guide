@@ -1,62 +1,19 @@
-
-
-
-@supports (animation-timeline: view()) {
-    .card {
-        --index0: calc(var(--index) - 1); /* 0-based index */
-        --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
-        --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
-    }
-    
-    @keyframes scale {
-        to {
-            transform:
-            scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
-        }
-    }
-    
-    #cards {
-        --numcards: 4;
-        view-timeline-name: --cards-element-scrolls-in-body;
-    }
-    
-    .card__content {
-        --start-range: calc(var(--index0) / var(--numcards) * 100%);
-        --end-range: calc((var(--index)) / var(--numcards) * 100%);
-        
-        animation: linear scale forwards;
-        animation-timeline: --cards-element-scrolls-in-body;
-        animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
-    }
-}
-.card {
-    --index0: calc(var(--index) - 1); /* 0-based index */
-    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
-    --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
-}
-
-@keyframes scale {
-    to {
-        transform:
-        scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
-    }
-}
-
 #cards {
-    --numcards: 4;
+    --numcards: 10;
     view-timeline-name: --cards-element-scrolls-in-body;
 }
 
 .card__content {
     --start-range: calc(var(--index0) / var(--numcards) * 100%);
     --end-range: calc((var(--index)) / var(--numcards) * 100%);
+
     
     animation: linear scale forwards;
     animation-timeline: --cards-element-scrolls-in-body;
     animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
 }
 
-.card {
+.tip {
     --index0: calc(var(--index) - 1); /* 0-based index */
     --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
     --reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
@@ -78,23 +35,97 @@
     margin-bottom: var(--card-margin);
 }
 
-#card_1 {
-    --index: 1;
+#cards > div {
+    height: 400px; /* specify the height */
+    overflow: auto; /* add scroll if content is larger */
 }
 
-#card_2 {
-    --index: 2;
+
+.card__content > figure {
+    grid-area: img;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
-#card_3 {
-    --index: 3;
+.card__content > figure > img {
+    to {
+        transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    }
+
+    #cards {
+        --numcards: 10;
+        view-timeline-name: --cards-element-scrolls-in-body;
+    }
+    
+    .card__content {
+        --start-range: calc(var(--index0) / var(--numcards) * 100%);
+        --end-range: calc((var(--index)) / var(--numcards) * 100%);
+        
+        animation: linear scale forwards;
+        animation-timeline: --cards-element-scrolls-in-body;
+        animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+    }
+
 }
 
-#card_4 {
-    --index: 4;
+#cards {
+    view-timeline-name: --cards-element-scrolls-in-body;
+    padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Adjust bottom padding */
+    margin-bottom: var(--card-margin);
 }
 
-.card {
+.card__content {
+    --index0: calc(var(--index) - 1); /* 0-based index */
+    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+    --start-range: calc(var(--index0) / var(--numcards) * 100%);
+    --end-range: calc((var(--index) + 1) / var(--numcards) * 100%);
+
+    animation: scale linear forwards;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+}
+
+@keyframes scale {
+    to {
+        transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    }
+}
+
+.tip {
+    --index0: calc(var(--index) - 1); /* 0-based index */
+    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+    position: sticky;
+    top: 0;
+    padding-top: calc(var(--index) * var(--card-top-offset));
+
+
+}
+
+/* Assign index values for all 10 cards */
+#card_1 { --index: 1; }
+#card_2 { --index: 2; }
+#card_3 { --index: 3; }
+#card_4 { --index: 4; }
+#card_5 { --index: 5; }
+#card_6 { --index: 6; }
+#card_7 { --index: 7; }
+#card_8 { --index: 8; }
+#card_9 { --index: 9; }
+#card_10 { --index: 10; }
+
+#cards {
+    list-style: none;
+    outline: calc(var(--outline-width) * 10) solid hotpink;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--numcards), var(--card-height));
+    gap: var(--card-margin);
+}
+
+
+
+.tip {
     position: sticky;
     top: 0;
     padding-top: calc(var(--index) * var(--card-top-offset));
@@ -103,7 +134,34 @@
 .card__content {
     transform-origin: 50% 0%;
     will-change: transform;
+
+    height: 25em;
 }
+
+.card__content > figure > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bg-body-tertiary {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("src/library.jpg");
+    color: white !important;
+    height: 50vh;
+    vertical-align: middle;
+
+}
+
+.text-body-emphasis {
+    color: white !important;
+
+  
+}
+
+    .content {
+        margin: 15%;
+    }
+
 
 /** DEBUG **/
 
@@ -133,7 +191,7 @@ main * { /* Poor Man's Reset */
 }
 
 body {
-    background: #CDE8E5;
+    /* background: #CDE8E5; */
     color: black;
     
     font-size: calc(1em + 0.5vw);
@@ -147,7 +205,7 @@ main {
 }
 
 header {
-    height: 100vh;
+    height: 60vh;
     display: grid;
     place-items: center;
 }
@@ -162,7 +220,7 @@ header {
     gap: var(--card-margin);
 }
 
-.card {
+.tip {
     outline: var(--outline-width) solid lime;
 }
 
@@ -180,6 +238,7 @@ header {
     
     align-items: stretch;
     outline: var(--outline-width) solid blue;
+
 }
 
 .card__content > div {
@@ -200,7 +259,7 @@ header {
 
 .card__content > figure > img {
     width: 100%;
-    height: 100%;
+
     object-fit: cover;
 }
 
@@ -520,4 +579,12 @@ aside p {
             }
         }
     }
+}
+
+.figure {
+
+}
+
+@media screen and (max-width: 768px) {
+
 }
