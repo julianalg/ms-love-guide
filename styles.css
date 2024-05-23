@@ -1,7 +1,20 @@
+@media screen and (min-width: 1301px) {
+    .not-animated {
+        display: none !important;
+    }
+
+    .not-animated .tip {
+        display: none !important;
+    }
+}
+
+
 #cards {
     --numcards: 10;
     view-timeline-name: --cards-element-scrolls-in-body;
 }
+
+
 
 .card__content {
     --start-range: calc(var(--index0) / var(--numcards) * 100%);
@@ -280,9 +293,6 @@ header {
     object-fit: cover;
 }
 
-.not-animated {
-    display: none !important;
-}
 
 main h1 {
     font-weight: 300;
@@ -661,7 +671,7 @@ body {
 }
 
 
-@media (max-width: 1500px) {
+@media (max-width: 1300px) {
     .animation {
         display: none !important;
     }
